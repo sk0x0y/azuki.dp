@@ -1,0 +1,12 @@
+syntax = "proto2";
+package validation;
+
+import "account.proto";
+
+message ValidationRequest {
+    required account.Account account = 1;
+}
+
+message MakeAccountRequest {
+    required account.Account account = 1;
+}
