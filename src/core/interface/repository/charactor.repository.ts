@@ -1,11 +1,11 @@
 import { EntityRepository, Repository } from "typeorm";
 import { Character } from "../../application/entities/Character";
-import { CharactorDTO } from "../dto/Charactor.dto";
+import { CharactorDTO } from "../dto/charactor.dto";
 
-@EntityRepository()
-class CharactorRepository extends Repository<Character> {
+@EntityRepository(Character)
+export class CharactorRepository extends Repository<Character> {
   register(data: CharactorDTO) {
-    this.createQueryBuilder()
+    return this.createQueryBuilder()
       .insert()
       .into(Character)
       .values({ ...data });

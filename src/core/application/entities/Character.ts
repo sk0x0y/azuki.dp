@@ -1,5 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { GenderType, GuardianType } from "../../interface/dto/Charactor.dto";
+import {
+  GenderType,
+  GuardianType,
+  NationalityType,
+} from "../../interface/dto/charactor.dto";
 
 @Entity()
 export class Character {
@@ -12,24 +16,31 @@ export class Character {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   hair: number;
 
-  @Column()
+  @Column({ nullable: true })
   face: number;
 
   @Column({
+    nullable: true,
     type: "enum",
     enum: GenderType,
   })
   gender: GenderType;
 
   @Column({
+    nullable: true,
     type: "enum",
     enum: GuardianType,
   })
   guardian: GuardianType;
 
-  @Column()
+  @Column({ nullable: true })
+  nationality: NationalityType;
+
+  @Column({
+    nullable: true,
+  })
   isActive: boolean;
 }

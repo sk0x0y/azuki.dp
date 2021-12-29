@@ -14,13 +14,13 @@ export enum NationalityType {
 }
 
 export interface CharactorDTO {
-  id: number;
+  id?: number;
   username: string;
   password: string;
-  hair: number;
-  face: number;
-  gender: GenderType;
-  guardian: GuardianType;
-  nationality: NationalityType;
-  isActive: boolean;
+  hair?: number;
+  face?: number;
+  gender?: GenderType;
+  guardian?: GuardianType;
+  nationality?: NationalityType;
+  isActive?: boolean;
 }
