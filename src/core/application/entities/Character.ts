@@ -10,37 +10,33 @@ export class Character {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column()
   hair: number;
 
-  @Column({ nullable: true })
+  @Column()
   face: number;
 
   @Column({
-    nullable: true,
     type: "enum",
     enum: GenderType,
   })
   gender: GenderType;
 
   @Column({
-    nullable: true,
     type: "enum",
     enum: GuardianType,
   })
   guardian: GuardianType;
 
-  @Column({ nullable: true })
+  @Column()
   nationality: NationalityType;
 
-  @Column({
-    nullable: true,
-  })
+  @Column({})
   isActive: boolean;
 }
