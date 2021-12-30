@@ -1,10 +1,10 @@
 import { Kafka, logLevel } from "kafkajs";
+import { WinstonLogCreator } from "../Logger";
 
-const kafka = new Kafka({
+export const kafka = new Kafka({
   clientId: "azuki-dp",
   brokers: ["192.168.0.100:9092"],
   connectionTimeout: 3000,
-  // logLevel: logLevel.DEBUG,
+  logLevel: logLevel.INFO,
+  logCreator: WinstonLogCreator,
 });
-
-export default kafka;
