@@ -1,0 +1,15 @@
+syntax = "proto2";
+package transaction;
+
+import "validation.proto";
+import "account.proto";
+
+message Transaction {
+  required string transaction_id                      = 1;
+  optional string span_id                             = 2;
+  oneof data {
+    validation.ValidationRequest validationRequest    = 3;
+    validation.ValidationResponse validationResponse  = 4;
+    account.MakeAccountRequest makeAccountRequest     = 5;
+  }
+}

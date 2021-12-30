@@ -1,0 +1,18 @@
+syntax = "proto2";
+package validation;
+
+import "account.proto";
+
+message ValidationRequest {
+  required account.Account account = 1;
+}
+
+message ValidationResponse {
+  enum Status {
+    SUCCESS         = 0;
+    DUPLICATED      = 1;
+    DB_ERROR        = 2;
+    UNKNOWN_ERROR   = 3;
+  }
+  required Status status = 1 [default = UNKNOWN_ERROR];
+}

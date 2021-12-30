@@ -1,12 +1,16 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { GenderType, GuardianType } from "../../interface/dto/Charactor.dto";
+import {
+  GenderType,
+  GuardianType,
+  NationalityType,
+} from "../../interface/dto/charactor.dto";
 
 @Entity()
 export class Character {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column()
@@ -31,5 +35,8 @@ export class Character {
   guardian: GuardianType;
 
   @Column()
+  nationality: NationalityType;
+
+  @Column({})
   isActive: boolean;
 }
