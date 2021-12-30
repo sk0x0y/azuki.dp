@@ -2,10 +2,10 @@ import { CharactorRepository } from "../repository/charactor.repository";
 import { CharactorDTO } from "../dto/charactor.dto";
 import { Connection, getConnection } from "typeorm";
 
-export class CharactorController {
-  connection: Connection;
-  charactorRepository: CharactorRepository;
-  charactor: CharactorDTO;
+class CharactorController {
+  private connection: Connection;
+  private charactorRepository: CharactorRepository;
+  private charactor: CharactorDTO;
 
   constructor() {
     this.connection = getConnection();
@@ -20,7 +20,15 @@ export class CharactorController {
     return this;
   }
 
+  findByName(username) {
+    return this.charactorRepository.findOne({ username });
+  }
+
   save() {
     return this.charactorRepository.save(this.charactor);
   }
 }
+
+export const useCharactor = () => {
+  return new CharactorController();
+};
