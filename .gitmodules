@@ -1,0 +1,3 @@
+[submodule "src/core/interface/proto/schema"]
+	path = src/core/interface/proto/schema
+	url = git@github.com:stias/azuki_dp_protobuf.git
