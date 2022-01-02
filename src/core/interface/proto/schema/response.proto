@@ -1,0 +1,16 @@
+syntax = "proto2";
+package response;
+
+message Response {
+  enum Status {
+    SUCCESS         = 0;
+    DUPLICATED      = 1;
+    DB_ERROR        = 2;
+    UNKNOWN_ERROR   = 3;
+    ALREADY_LOGIN   = 4;
+    BLOCK           = 5;
+    NOT_EXISTS      = 6;
+    WRONG_PASSWORD  = 7;
+  }
+  required Status status = 1 [default = UNKNOWN_ERROR];
+}
