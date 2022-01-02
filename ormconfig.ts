@@ -5,7 +5,7 @@ export default {
   username: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  synchronize: true,
+  synchronize: true, // process.env.NODE_ENV === "development" ? true : false,
   logging: false,
   entities: ["src/core/application/entities/**/*.ts"],
   migrations: ["src/core/application/migrations/**/*.ts"],
