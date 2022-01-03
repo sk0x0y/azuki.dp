@@ -32,7 +32,9 @@ class ProducerInstance {
   }
 
   private async connect() {
-    await this.producer.connect();
+    await this.producer.connect().catch((err) => {
+      Logger().setPrefix("[Kafka Producer Connection Error] ").error(err);
+    });
 
     return this;
   }

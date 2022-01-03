@@ -22,7 +22,9 @@ class ConsumerInstance {
 
   private async connect() {
     this.consumer = kafka.consumer({ groupId: this.groupId });
-    await this.consumer.connect();
+    await this.consumer.connect().catch((err) => {
+      Logger().setPrefix("[Kafka Consumer Connection Error] ").error(err);
+    });
 
     return this;
   }
