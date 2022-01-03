@@ -159,6 +159,7 @@ const bootstrap = async () => {
           });
       });
 
+    // 캐릭터 로그인
     Consumer()
       .setGroupId("dp-action-login")
       .setTopic("azuki.login.action.login")
@@ -169,22 +170,44 @@ const bootstrap = async () => {
         response.transaction_id = data.transaction_id;
         response.span_id = data.span_id;
 
+        if (!getConnection().isConnected) {
+          Logger()
+            .setPrefix("[데이터베이스 연결 시도] ")
+            .error(
+              "커넥션이 끊긴 상태에서 접속을 시도하여 데이터베이스 연결을 다시 시도합니다"
+            );
+
+          Producer()
+            .setTopic("azuki.dp.action.login")
+            .setMessage(() => {
+              response.response.status = Status.DB_ERROR;
+              Logger()
+                .setPrefix("[로그인 체크포인트 1] ")
+                .error("디비꺼쪗다고보냄");
+              return response.serialize();
+            })
+            .send();
+
+          createConnection()
+            .then(() => {
+              Logger().setPrefix("[데이터베이스] ").warn("연결 성공!");
+            })
+            .catch((err) => {
+              Logger().setPrefix("[데이터베이스 에러] ").error(err);
+            });
+
+          Logger()
+            .setPrefix("[로그인 체크포인트 2] ")
+            .error("디비꺼쪗다고보냄");
+          return;
+        }
+
         Logger()
           .setPrefix("[캐릭터 로그인 시도] ")
           .warn(
             `${data.validationRequest.account.user_name} ${data.validationRequest.account.user_password}`
           );
 
-        if (!getConnection().isConnected) {
-          response.response.status = Status.DB_ERROR;
-
-          Producer()
-            .setTopic("azuki.dp.action.login")
-            .setMessage(() => {
-              return response.serialize();
-            })
-            .send();
-        }
         const charactorRepository = getCustomRepository(CharactorRepository);
         charactorRepository
           .findOne({
