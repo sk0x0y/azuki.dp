@@ -42,17 +42,21 @@ class ConsumerInstance {
     await this.connect();
     await this.subscribe();
 
-    await this.consumer.run({
-      eachMessage: async ({ topic, partition, message }) => {
-        Logger()
-          .setPrefix("[Consumer] ")
-          .info(`Topic: ${topic} / Receive Message: ${message.value}`);
+    await this.consumer
+      .run({
+        eachMessage: async ({ topic, partition, message }) => {
+          Logger()
+            .setPrefix("[Consumer] ")
+            .info(`Topic: ${topic} / Receive Message: ${message.value}`);
 
-        this.message = message;
+          this.message = message;
 
-        cb(this.message);
-      },
-    });
+          await cb(this.message);
+        },
+      })
+      .catch((err) => {
+        Logger().setPrefix("[Kafka Consumer Error] ").error(err);
+      });
   }
 }
 export const Consumer = () => {

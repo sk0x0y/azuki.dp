@@ -42,10 +42,14 @@ class ProducerInstance {
   async send() {
     await this.connect();
 
-    await this.producer.send({
-      topic: this.topic,
-      messages: [{ value: this.message }],
-    });
+    await this.producer
+      .send({
+        topic: this.topic,
+        messages: [{ value: this.message }],
+      })
+      .catch((err) => {
+        Logger().setPrefix("[Kafka Producer Error] ").error(err);
+      });
 
     Logger()
       .setPrefix("[Producer] ")
