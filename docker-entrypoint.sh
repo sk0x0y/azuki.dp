@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yarn add && yarn start
+yarn install && yarn start
